@@ -82,12 +82,12 @@ public class Allocate extends BaseClass{
         WebDriverWait success_wait = new WebDriverWait(driver, 5);
         success_wait.until(ExpectedConditions.presenceOfElementLocated(success));
     }
+    public void wait_for_message() throws InterruptedException {
+        WebDriverWait success_wait = new WebDriverWait(driver, 5);
+        success_wait.until(ExpectedConditions.presenceOfElementLocated(message));
+    }
     public void go_back() throws InterruptedException {
         driver.navigate().back();
-    }
-    public void validate_count(int expected) throws InterruptedException {
-        int countAfter = Integer.parseInt(driver.findElement(nominatation).getText().replaceAll("[\\D]", ""));
-        Assert.assertEquals(countAfter , expected);
     }
 
     public void search_hasher(String hasher) throws InterruptedException {
@@ -120,9 +120,33 @@ public class Allocate extends BaseClass{
     public void click_close() throws InterruptedException {
         js_click(close);
     }
-    public void _() throws InterruptedException {
+    public void accept_pod() throws InterruptedException {
+        js_click(ao_accept_pod);
+    }
+    public void click_confirm_pod() throws InterruptedException {
+        js_click(confirm_pod);
+    }
+    public void click_closed_tab() throws InterruptedException {
+        driver.navigate().refresh();
+        js_click(closed_tab);
+    }
+    public void validate_count(int expected) throws InterruptedException {
+        int countAfter = Integer.parseInt(driver.findElement(nominatation).getText().replaceAll("[\\D]", ""));
+        Assert.assertEquals(countAfter , expected);
+    }
+    public void validate_selected_hasher() throws InterruptedException {
         String name = driver.findElement(selected_hasher).getText();
         Assert.assertNotEquals(name,"");
+    }
+    public void validate_already_allocated() throws InterruptedException {
+        String msg=  driver.findElement(message).getText();
+        Assert.assertTrue(msg.contains("is already allocated to another POD"));
+    }
+    public void validate_closed_status(String pod) throws InterruptedException {
+        String closed_pod_path ="(//span[text()=\"POD-"+pod+"\"]/ancestor::td)/following-sibling::td//span[text()=\"CLOSED\"]";
+        String actual = driver.findElement(By.xpath(closed_pod_path)).getText();
+
+        Assert.assertEquals(actual,"CLOSED");
     }
 //    public void click_() throws InterruptedException {
 //
