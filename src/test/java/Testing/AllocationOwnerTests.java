@@ -8,7 +8,7 @@ public class AllocationOwnerTests extends BaseClass {
     Allocate allocate=new Allocate();
 
     @Test(priority = 1)
-    public void TC_11_check_nomination_count() throws InterruptedException{
+    public void TC11_check_nomination_count() throws InterruptedException{
         allocate.click_login();
 
         allocate.click_pod("468");
@@ -21,7 +21,7 @@ public class AllocationOwnerTests extends BaseClass {
         allocate.validate_count(1);
     }
     @Test(priority = 2)
-    public void TC_12_check_count_change() throws InterruptedException{
+    public void TC12_check_count_change() throws InterruptedException{
         allocate.click_pod("461");
         allocate.click_nominate();
         allocate.reset_filter();
