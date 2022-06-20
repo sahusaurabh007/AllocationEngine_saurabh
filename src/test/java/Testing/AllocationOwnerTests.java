@@ -2,85 +2,113 @@ package Testing;
 
 import Pages.Allocate;
 import Pages.BaseClass;
+import Pages.Login;
 import Pages.MyPods;
 import org.testng.annotations.Test;
 
 public class AllocationOwnerTests extends BaseClass {
+    Login login = new Login();
     Allocate AllocationOwner =new Allocate();
     MyPods ProductOwner = new MyPods();
 
-    @Test(priority = 1)
-    public void TC11_check_nomination_count() throws InterruptedException{
-        AllocationOwner.click_login();
+    @Test
+    public void Select_unalocated_hasher() throws InterruptedException{
 
         String pod_id="468";
+
+        login.login_to_website();
 
         // AO nominates a hasher
         AllocationOwner.click_allocations();
         AllocationOwner.click_pod(pod_id);
         AllocationOwner.click_nominate();
-        AllocationOwner.reset_filter();
-        AllocationOwner.add_hasher();
+        //Thread.sleep(6000);
+        AllocationOwner.filter_b8_band();
+        Thread.sleep(3000);
+        AllocationOwner.change_page_size();
+        //Thread.sleep(4000);
+         AllocationOwner.nominate_unallocated_hasher();
+        System.out.println(AllocationOwner.name);
+       // Thread.sleep(2000);
         AllocationOwner.confirm_nominations();
-        AllocationOwner.wait_for_success();
-        AllocationOwner.go_back();
+        AllocationOwner.wait_for_message();
 
-        // validation
-        AllocationOwner.validate_count(1);
     }
-    //@Test(priority = 2)
-    @Test( enabled=false )
+
+    @Test
+    public void TC11_check_nomination_count() throws InterruptedException{
+
+        String pod_id="468";
+
+        login.login_to_website();
+
+        // AO nominates a hasher
+        AllocationOwner.click_allocations()
+                .click_pod(pod_id)
+                .click_nominate()
+                .reset_filter()
+                .add_hasher()
+                .confirm_nominations()
+                .wait_for_message()
+                .go_back()
+                .validate_count(1);
+    }
+
+    @Test
     public void TC12_check_count_change() throws InterruptedException{
+
         String pod_id="461";
         String hasher1 = "sallyrutherford";
         String hasher2 = "katherinepullman";
         String hasher3 = "evanjames";
 
+        login.login_to_website();
+
         // AO nominates 3 hasher
-        AllocationOwner.click_allocations();
-        AllocationOwner.click_pod(pod_id);
-        AllocationOwner.click_nominate();
-        AllocationOwner.reset_filter();
+        AllocationOwner.click_allocations()
+                .click_pod(pod_id)
+                .click_nominate()
+                .reset_filter()
 
-        AllocationOwner.search_hasher(hasher1);
-        AllocationOwner.nominate_hasher(hasher1);
-        AllocationOwner.nominate_hasher("sallyrutherford");
-        AllocationOwner.close_search();
+                .search_hasher(hasher1)
+                .nominate_hasher(hasher1)
+                .close_search()
 
-        AllocationOwner.search_hasher(hasher2);
-        AllocationOwner.nominate_hasher(hasher2);
-        AllocationOwner.nominate_hasher("katherinepullman");
-        AllocationOwner.close_search();
+                .search_hasher(hasher2)
+                .nominate_hasher(hasher2)
+                .close_search()
 
-        AllocationOwner.search_hasher(hasher3);
-        AllocationOwner.nominate_hasher(hasher3);
-        AllocationOwner.nominate_hasher("evanjames");
+                .search_hasher(hasher3)
+                .nominate_hasher(hasher3)
 
-        AllocationOwner.confirm_nominations();
-        AllocationOwner.wait_for_success();
-        AllocationOwner.wait_for_consideration();
-        AllocationOwner.go_back();
+                .confirm_nominations()
+                .wait_for_message()
+                .wait_for_consideration()
+                .go_back()
 
         // validate
-        AllocationOwner.validate_count(2);
+                .validate_count(2);
     }
-    @Test( priority = 3)
-    //@Test( enabled=false )
+
+    @Test
     public void TC14_check_hasher_allocated() throws InterruptedException {
+
         String pod_id="461";
         String hasher = "rebeccakelly";
 
+        login.login_to_website();
+
         // AO nominates a hasher
-        AllocationOwner.click_allocations();
-        AllocationOwner.click_pod(pod_id);
-        AllocationOwner.click_nominate();
-        AllocationOwner.reset_filter();
-        AllocationOwner.search_hasher(hasher);
-        AllocationOwner.nominate_hasher(hasher);
-        AllocationOwner.confirm_nominations();
-        AllocationOwner.wait_for_success();
-        AllocationOwner.wait_for_consideration();
-        AllocationOwner.go_back();
+        AllocationOwner.click_allocations()
+                .click_pod(pod_id)
+                .click_nominate()
+                .reset_filter()
+                .search_hasher(hasher)
+                .nominate_hasher(hasher)
+                .confirm_nominations()
+                .wait_for_message()
+                .wait_for_consideration()
+                .go_back();
 
         // PO gives confidence level to hasher
         ProductOwner.click_Mypods();
@@ -91,34 +119,37 @@ public class AllocationOwnerTests extends BaseClass {
         ProductOwner.close_feedback();
 
         // Ao allocates hasher
-        AllocationOwner.click_allocations();
-        AllocationOwner.click_pod(pod_id);
-        AllocationOwner.click_allocation_tab();
-        AllocationOwner.click_view_response();
-        AllocationOwner.wait_for_message();
-        AllocationOwner.select_hasher();
-        AllocationOwner.click_close();
+        AllocationOwner.click_allocations()
+                .click_pod(pod_id)
+                .click_allocation_tab()
+                .click_view_response()
+                .select_hasher()
+                .wait_for_message()
+                .click_close()
 
         // validation
-        AllocationOwner.validate_selected_hasher();
+                .validate_selected_hasher();
     }
-    @Test( priority = 4)
-    //@Test( enabled=false )
+
+    @Test
     public void TC15_check_hasher_alrady_allocated() throws InterruptedException {
+
         String pod_id="465";
         String hasher = "rebeccakelly";
 
+        login.login_to_website();
+
         // AO nominates a hasher
-        AllocationOwner.click_allocations();
-        AllocationOwner.click_pod(pod_id);
-        AllocationOwner.click_nominate();
-        AllocationOwner.reset_filter();
-        AllocationOwner.search_hasher(hasher);
-        AllocationOwner.nominate_hasher(hasher);
-        AllocationOwner.confirm_nominations();
-        AllocationOwner.wait_for_success();
-        AllocationOwner.wait_for_consideration();
-        AllocationOwner.go_back();
+        AllocationOwner.click_allocations()
+                .click_pod(pod_id)
+                .click_nominate()
+                .reset_filter()
+                .search_hasher(hasher)
+                .nominate_hasher(hasher)
+                .confirm_nominations()
+                .wait_for_message()
+                .wait_for_consideration()
+                .go_back();
 
         // PO gives confidence level to hasher
         ProductOwner.click_Mypods();
@@ -129,15 +160,15 @@ public class AllocationOwnerTests extends BaseClass {
         ProductOwner.close_feedback();
 
         // Ao allocates hasher
-        AllocationOwner.click_allocations();
-        AllocationOwner.click_pod(pod_id);
-        AllocationOwner.click_allocation_tab();
-        AllocationOwner.click_view_response();
-        AllocationOwner.select_hasher();
-        AllocationOwner.wait_for_message();
-        AllocationOwner.click_close();
-        AllocationOwner.accept_pod();
-        AllocationOwner.click_confirm_pod();
+         AllocationOwner.click_allocations()
+                        .click_pod(pod_id)
+                        .click_allocation_tab()
+                        .click_view_response()
+                        .select_hasher()
+                        .wait_for_message()
+                        .click_close()
+                        .accept_pod()
+                        .click_confirm_pod();
 
         // po Accepts pod
         ProductOwner.click_Mypods();
@@ -147,16 +178,16 @@ public class AllocationOwnerTests extends BaseClass {
 
         // AO nominates a hasher
         String pod_id_2="462";
-        AllocationOwner.click_allocations();
-        AllocationOwner.click_pod(pod_id_2);
-        AllocationOwner.click_nominate();
-        AllocationOwner.reset_filter();
-        AllocationOwner.search_hasher(hasher);
-        AllocationOwner.nominate_hasher(hasher);
-        AllocationOwner.confirm_nominations();
-        AllocationOwner.wait_for_success();
-        AllocationOwner.wait_for_consideration();
-        AllocationOwner.go_back();
+        AllocationOwner.click_allocations()
+                .click_pod(pod_id)
+                .click_nominate()
+                .reset_filter()
+                .search_hasher(hasher)
+                .nominate_hasher(hasher)
+                .confirm_nominations()
+                .wait_for_message()
+                .wait_for_consideration()
+                .go_back();
 
         // PO gives confidence level to hasher
         ProductOwner.click_Mypods();
@@ -167,34 +198,34 @@ public class AllocationOwnerTests extends BaseClass {
         ProductOwner.close_feedback();
 
         // Ao allocates hasher
-        AllocationOwner.click_allocations();
-        AllocationOwner.click_pod(pod_id_2);
-        AllocationOwner.click_allocation_tab();
-        AllocationOwner.click_view_response();
-        AllocationOwner.select_hasher();
-        AllocationOwner.wait_for_message();
-
-        // validate hasher already allocated
-        AllocationOwner.validate_already_allocated();
+        AllocationOwner.click_allocations()
+                .click_pod(pod_id)
+                .click_allocation_tab()
+                .click_view_response()
+                .select_hasher()
+                .wait_for_message()
+                .validate_already_allocated();
     }
-    // @Test(priority = 6)
-    @Test( enabled=false )
+
+    @Test
     public void TC20_check_closed_status() throws InterruptedException {
 
         String pod_id = "468";
         String hasher = "melanierutherford";
 
+        login.login_to_website();
+
         // AO nominates a hasher
-        AllocationOwner.click_allocations();
-        AllocationOwner.click_pod(pod_id);
-        AllocationOwner.click_nominate();
-        AllocationOwner.reset_filter();
-        AllocationOwner.search_hasher(hasher);
-        AllocationOwner.nominate_hasher(hasher);
-        AllocationOwner.confirm_nominations();
-        AllocationOwner.wait_for_success();
-        AllocationOwner.wait_for_consideration();
-        AllocationOwner.go_back();
+        AllocationOwner.click_allocations()
+                .click_pod(pod_id)
+                .click_nominate()
+                .reset_filter()
+                .search_hasher(hasher)
+                .nominate_hasher(hasher)
+                .confirm_nominations()
+                .wait_for_message()
+                .wait_for_consideration()
+                .go_back();
 
         // PO gives confidence level to hasher
         ProductOwner.click_Mypods();
@@ -205,15 +236,15 @@ public class AllocationOwnerTests extends BaseClass {
         ProductOwner.close_feedback();
 
         // Ao allocates hasher
-        AllocationOwner.click_allocations();
-        AllocationOwner.click_pod(pod_id);
-        AllocationOwner.click_allocation_tab();
-        AllocationOwner.click_view_response();
-        AllocationOwner.select_hasher();
-        AllocationOwner.wait_for_message();
-        AllocationOwner.click_close();
-        AllocationOwner.accept_pod();
-        AllocationOwner.click_confirm_pod();
+        AllocationOwner.click_allocations()
+                .click_pod(pod_id)
+                .click_allocation_tab()
+                .click_view_response()
+                .select_hasher()
+                .wait_for_message()
+                .click_close()
+                .accept_pod()
+                .click_confirm_pod();
 
         // po Accepts pod
         ProductOwner.click_Mypods();
@@ -222,8 +253,8 @@ public class AllocationOwnerTests extends BaseClass {
         ProductOwner.click_confirm_pod();
 
         // check closed status
-        AllocationOwner.click_allocations();
-        AllocationOwner.click_closed_tab();
-        AllocationOwner.validate_closed_status(pod_id);
+         AllocationOwner.click_allocations()
+                        .click_closed_tab()
+                        .validate_closed_status(pod_id);
     }
 }

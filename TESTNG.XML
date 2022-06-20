@@ -1,0 +1,14 @@
+<!DOCTYPE suite SYSTEM "https://testng.org/testng-1.0.dtd" >
+<suite name = "src.test.java" parallel = "tests" thread-count = "5">
+    <test name = "Allocation owner Test" parallel = "methods">
+        <classes>
+            <class name = "Testing.AllocationOwnerTests" />
+        </classes>
+    </test>
+    <test name = "product owner Test" parallel = "methods">
+        <classes>
+            <class name = "Testing.ProductOwnerTests" />
+        </classes>
+    </test>
+
+</suite>
