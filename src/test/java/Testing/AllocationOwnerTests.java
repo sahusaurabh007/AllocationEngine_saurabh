@@ -19,19 +19,17 @@ public class AllocationOwnerTests extends BaseClass {
         login.login_to_website();
 
         // AO nominates a hasher
-        AllocationOwner.click_allocations();
-        AllocationOwner.click_pod(pod_id);
-        AllocationOwner.click_nominate();
-        //Thread.sleep(6000);
-        AllocationOwner.filter_b8_band();
-        Thread.sleep(3000);
-        AllocationOwner.change_page_size();
-        //Thread.sleep(4000);
-         AllocationOwner.nominate_unallocated_hasher();
-        System.out.println(AllocationOwner.name);
-       // Thread.sleep(2000);
-        AllocationOwner.confirm_nominations();
-        AllocationOwner.wait_for_message();
+        AllocationOwner.click_allocations()
+                    .click_pod(pod_id)
+                    .click_nominate()
+                //Thread.sleep(6000);
+                    .filter_b8_band()
+                    .change_page_size()
+                //Thread.sleep(4000);
+                    .nominate_unallocated_hasher()
+                // Thread.sleep(2000);
+                    .confirm_nominations()
+                    .wait_for_message();
 
     }
 
@@ -111,12 +109,12 @@ public class AllocationOwnerTests extends BaseClass {
                 .go_back();
 
         // PO gives confidence level to hasher
-        ProductOwner.click_Mypods();
-        ProductOwner.click_pod(pod_id);
-        ProductOwner.click_nominate();
-        ProductOwner.give_confidence();
-        ProductOwner.confirm_feedback();
-        ProductOwner.close_feedback();
+        ProductOwner.click_Mypods()
+                .click_pod(pod_id)
+                .click_nominate()
+                .give_confidence()
+                .confirm_feedback()
+                .close_feedback();
 
         // Ao allocates hasher
         AllocationOwner.click_allocations()
@@ -152,12 +150,12 @@ public class AllocationOwnerTests extends BaseClass {
                 .go_back();
 
         // PO gives confidence level to hasher
-        ProductOwner.click_Mypods();
-        ProductOwner.click_pod(pod_id);
-        ProductOwner.click_nominate();
-        ProductOwner.give_confidence();
-        ProductOwner.confirm_feedback();
-        ProductOwner.close_feedback();
+        ProductOwner.click_Mypods()
+                .click_pod(pod_id)
+                .click_nominate()
+                .give_confidence()
+                .confirm_feedback()
+                .close_feedback();
 
         // Ao allocates hasher
          AllocationOwner.click_allocations()
@@ -171,10 +169,10 @@ public class AllocationOwnerTests extends BaseClass {
                         .click_confirm_pod();
 
         // po Accepts pod
-        ProductOwner.click_Mypods();
-        ProductOwner.click_pod(pod_id);
-        ProductOwner.accept_pod();
-        ProductOwner.click_confirm_pod();
+        ProductOwner.click_Mypods()
+                .click_pod(pod_id)
+                .accept_pod()
+                .click_confirm_pod();
 
         // AO nominates a hasher
         String pod_id_2="462";
@@ -190,12 +188,12 @@ public class AllocationOwnerTests extends BaseClass {
                 .go_back();
 
         // PO gives confidence level to hasher
-        ProductOwner.click_Mypods();
-        ProductOwner.click_pod(pod_id_2);
-        ProductOwner.click_nominate();
-        ProductOwner.give_confidence();
-        ProductOwner.confirm_feedback();
-        ProductOwner.close_feedback();
+        ProductOwner.click_Mypods()
+                .click_pod(pod_id_2)
+                .click_nominate()
+                .give_confidence()
+                .confirm_feedback()
+                .close_feedback();
 
         // Ao allocates hasher
         AllocationOwner.click_allocations()
@@ -228,12 +226,12 @@ public class AllocationOwnerTests extends BaseClass {
                 .go_back();
 
         // PO gives confidence level to hasher
-        ProductOwner.click_Mypods();
-        ProductOwner.click_pod(pod_id);
-        ProductOwner.click_nominate();
-        ProductOwner.give_confidence();
-        ProductOwner.confirm_feedback();
-        ProductOwner.close_feedback();
+        ProductOwner.click_Mypods()
+                .click_pod(pod_id)
+                .click_nominate()
+                .give_confidence()
+                .confirm_feedback()
+                .close_feedback();
 
         // Ao allocates hasher
         AllocationOwner.click_allocations()
@@ -247,10 +245,10 @@ public class AllocationOwnerTests extends BaseClass {
                 .click_confirm_pod();
 
         // po Accepts pod
-        ProductOwner.click_Mypods();
-        ProductOwner.click_pod(pod_id);
-        ProductOwner.accept_pod();
-        ProductOwner.click_confirm_pod();
+        ProductOwner.click_Mypods()
+                .click_pod(pod_id)
+                .accept_pod()
+                .click_confirm_pod();
 
         // check closed status
          AllocationOwner.click_allocations()
