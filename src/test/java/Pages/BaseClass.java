@@ -23,18 +23,21 @@ public class BaseClass {
         driver=new ChromeDriver();
         driver.manage().window().maximize();
 
-        driver.get("https://dna-staging.hashedin.com/allocation/allocate");
+        driver.get("https://dna-staging.hashedin.com/pods/requests/PR-87");
+       //driver.get("https://dna-staging.hashedin.com/allocation/allocate");
 
         //driver.manage().timeouts().implicitlyWait(20, TimeUnit.SECONDS);
-        wait = new WebDriverWait(driver, 30);
+        wait = new WebDriverWait(driver, 40);
         return driver;
     }
-
+    public void wait_and_click(By element) throws InterruptedException {
+        System.out.println(element);
+        wait.until(ExpectedConditions.presenceOfElementLocated(element));
+        driver.findElement(element).click();
+        Thread.sleep(1000);
+    }
     public void js_click(By element) throws InterruptedException {
         System.out.println(element);
-        new WebDriverWait(driver, 20).
-                until(webDriver -> ((JavascriptExecutor) webDriver).
-                        executeScript("return document.readyState").equals("complete"));
 
         wait.until(ExpectedConditions.presenceOfElementLocated(element));
 
@@ -47,7 +50,12 @@ public class BaseClass {
 
         Thread.sleep(1000);
     }
-
+    public void go_to_allocation_engine() throws InterruptedException {
+        driver.get("https://dna-staging.hashedin.com/allocation/allocate");
+    }
+    public void go_to_pods_platform() throws InterruptedException {
+        driver.get("https://dna-staging.hashedin.com/pods/requests/PR-87");
+    }
     // @AfterMethod
     public void closeBrowser() {  // close browser
         driver.close();

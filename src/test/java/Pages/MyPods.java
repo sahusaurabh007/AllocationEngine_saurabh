@@ -17,7 +17,7 @@ public class MyPods extends BaseClass{
     By po_accept_pod= By.xpath("//span[text()=\"Accept\"]");
     By confirm_pod= By.xpath("//span[text()=\"Yes, Confirm\"]");
     By message= By.xpath("//div[@class=\"ant-message-notice\"]//span[2]");
-    By success = By.xpath("//span[text()=\"Successful\"]");
+    //By success = By.xpath("//span[text()=\"Successful\"]");
 
     By nomination_with_count = By.xpath("(//article[@class='ant-typography'])[1]");
     By zero_nominations= By.xpath("//td[6]//button");
@@ -28,7 +28,7 @@ public class MyPods extends BaseClass{
     public int count=0;
 
     public MyPods click_Mypods() throws InterruptedException {
-        js_click(mypods);
+        wait_and_click(mypods);
 
         return this;
     }
@@ -38,18 +38,19 @@ public class MyPods extends BaseClass{
                         executeScript("return document.readyState").equals("complete"));
         driver.navigate().refresh();
 
-        js_click(By.xpath("//span[text()=\"POD-"+pod+"\"]"));
+        wait_and_click(By.xpath("//span[text()=\""+pod+"\"]"));
         return this;
     }
     public MyPods click_nominate() throws InterruptedException {
-        js_click(zero_nominations);
+        wait_and_click(zero_nominations);
         return this;
     }
     public MyPods click_nominations() throws InterruptedException {
-        js_click(nomination_with_count);
+        wait_and_click(nomination_with_count);
         return this;
     }
     public MyPods give_confidence() throws InterruptedException {
+        wait.until(ExpectedConditions.presenceOfElementLocated(confidence));
         WebElement yourOption = driver.findElement(confidence);
         yourOption.sendKeys(Keys.DOWN);
         yourOption.sendKeys(Keys.RETURN);
@@ -62,21 +63,21 @@ public class MyPods extends BaseClass{
     }
 
     public MyPods confirm_feedback() throws InterruptedException {
-        js_click(po_select);
+        wait_and_click(po_select);
         Thread.sleep(2000);
         return this;
     }
     public MyPods close_feedback() throws InterruptedException {
-        js_click(close);
+        wait_and_click(close);
         Thread.sleep(2000);
         return this;
     }
     public MyPods accept_pod() throws InterruptedException {
-        js_click(po_accept_pod);
+        wait_and_click(po_accept_pod);
         return this;
     }
     public MyPods click_confirm_pod() throws InterruptedException {
-        js_click(confirm_pod);
+        wait_and_click(confirm_pod);
         return this;
     }
 
@@ -112,7 +113,7 @@ public class MyPods extends BaseClass{
     }
 
     public MyPods validate_confirmed_status(String pod) throws InterruptedException {
-        String status ="(//span[text()=\"POD-"+pod+"\"]/ancestor::td)/following-sibling::td//span[text()=\"CONFIRMED\"]";
+        String status ="(//span[text()=\""+pod+"\"]/ancestor::td)/following-sibling::td//span[text()=\"CONFIRMED\"]";
         wait.until(ExpectedConditions.presenceOfElementLocated(By.xpath(status)));
         String actual = driver.findElement(By.xpath(status)).getText();
 
@@ -127,7 +128,7 @@ public class MyPods extends BaseClass{
     }
 
     public MyPods validate_closed_status_in_closed_tab(String pod) throws InterruptedException {
-        String status ="(//span[text()=\"POD-"+pod+"\"]/ancestor::td)/following-sibling::td//span[text()=\"CLOSED\"]";
+        String status ="(//span[text()=\""+pod+"\"]/ancestor::td)/following-sibling::td//span[text()=\"CLOSED\"]";
         wait.until(ExpectedConditions.presenceOfElementLocated(By.xpath(status)));
         String actual = driver.findElement(By.xpath(status)).getText();
 
@@ -136,14 +137,14 @@ public class MyPods extends BaseClass{
     }
     public MyPods click_closed_tab() throws InterruptedException {
         driver.navigate().refresh();
-        js_click(closed_tab);
+        wait_and_click(closed_tab);
         return this;
     }
 
     public MyPods validate_success_msg() throws InterruptedException {
 
-        wait.until(ExpectedConditions.presenceOfElementLocated(success));
-        String actual = driver.findElement(success).getText();
+        wait.until(ExpectedConditions.presenceOfElementLocated(message));
+        String actual = driver.findElement(message).getText();
         Assert.assertEquals(actual,"Successful");
         return this;
     }

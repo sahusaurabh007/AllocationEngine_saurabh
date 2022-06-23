@@ -46,12 +46,12 @@ public class Allocate extends BaseClass{
     By hasher_status= By.xpath("//li[contains(@class,'list-item')]");
     By no_nomination_status = By.xpath("//div[text()=\"No other Nominations\"]");
     By bands= By.xpath("(//p[text()=\"Bands\"])//following::input[@type=\"search\"][1]");
-    By page_size= By.xpath("(//input[@aria-label=\"Page Size\"])[1]");
+    By page_size= By.xpath("//div[@class=\"nominate-modal\"]//descendant::input[@aria-label=\"Page Size\"]");
 
     public String name="";
 
     public Allocate click_allocations() throws InterruptedException {
-        js_click(allocate);
+        wait_and_click(allocate);
         return  this;
     }
     public Allocate click_pod(String pod) throws InterruptedException {
@@ -60,17 +60,17 @@ public class Allocate extends BaseClass{
                         executeScript("return document.readyState").equals("complete"));
         driver.navigate().refresh();
 
-        js_click(By.xpath("//span[text()=\"POD-"+pod+"\"]"));
+        wait_and_click(By.xpath("//span[text()=\""+pod+"\"]"));
 
         return  this;
     }
     public Allocate click_nominate() throws InterruptedException {
-        js_click(nominate);
+        wait_and_click(nominate);
         return this;
     }
     public Allocate click_nominate_2() throws InterruptedException {
 
-        js_click(zero_nominations);
+        wait_and_click(zero_nominations);
         return this;
     }
     public Allocate click_filter() throws InterruptedException {
@@ -109,6 +109,7 @@ public class Allocate extends BaseClass{
     public Allocate change_page_size() throws InterruptedException {
         // change page size to 100 hashers
         Thread.sleep(3000);
+        System.out.println(page_size);
         wait.until(ExpectedConditions.presenceOfElementLocated(page_size));
         WebElement yourOption = driver.findElement(page_size);
         yourOption.sendKeys(Keys.DOWN);
@@ -124,7 +125,7 @@ public class Allocate extends BaseClass{
         return this;
     }
     public Allocate add_hasher() throws InterruptedException {
-        js_click(add);      // adds 1st hasher
+        wait_and_click(add);      // adds 1st hasher
         return this;
     }
     public Allocate nominate_unallocated_hasher() throws InterruptedException {
@@ -141,10 +142,10 @@ public class Allocate extends BaseClass{
 
             // get name of hasher
             wait.until(ExpectedConditions.presenceOfElementLocated(By.xpath("(//img[contains(@src,\"view\")])["+i+"]//ancestor::tr//div[@class=\"profile\"]//h2[@class=\"name\"]")));
-            name = driver.findElement(By.xpath("(//img[contains(@src,\"view\")])["+i+"]//ancestor::tr//div[@class=\"profile\"]//h2[@class=\"name\"]")).getText();
+            name = driver.findElement(By.xpath("(//img[contains(@src,\"view\")])["+i+"]//ancestor::tr//div[@class=\"profile\"]//h4[@class=\"email\"]")).getText();
 
             // click eye icon
-            js_click(By.xpath("(//img[contains(@src,\"view\")])[" + i + "]"));
+            wait_and_click(By.xpath("(//img[contains(@src,\"view\")])[" + i + "]"));
 
             //Thread.sleep(1000);
             try {
@@ -173,7 +174,7 @@ public class Allocate extends BaseClass{
         }
 
         // nominate the hasher
-        js_click(By.xpath("(//span[contains(@class,\"anticon-user-add\")])["+i+"]"));
+        wait_and_click(By.xpath("(//span[contains(@class,\"anticon-user-add\")])["+i+"]"));
 
 //        i++;  // due to add nominations a hasher is displayed in nominated hasher & has index 1
 //              // so index for all hashers in search results are increased by 1
@@ -182,15 +183,10 @@ public class Allocate extends BaseClass{
         return this;
     }
     public Allocate confirm_nominations() throws InterruptedException {
-        js_click(confirm);
+        wait_and_click(confirm);
         return this;
     }
-//    public Allocate wait_for_success() throws InterruptedException {
-//        wait.until(ExpectedConditions.presenceOfElementLocated(success));
-//        wait.until(driver -> ExpectedConditions.invisibilityOfElementLocated(success));
-//
-//        return this;
-//    }
+
     public Allocate wait_for_message() throws InterruptedException {
         wait.until(ExpectedConditions.presenceOfElementLocated(message));
         wait.until(driver -> ExpectedConditions.invisibilityOfElementLocated(message));
@@ -198,6 +194,7 @@ public class Allocate extends BaseClass{
         return this;
     }
     public Allocate go_back() throws InterruptedException {
+        Thread.sleep(1000);
         driver.navigate().back();
         return this;
     }
@@ -208,7 +205,7 @@ public class Allocate extends BaseClass{
         return this;
     }
     public Allocate nominate_hasher(String hasher) throws InterruptedException {
-        js_click(By.xpath("//h4[text()=\""+hasher+"_test@deloitte.com\"]//ancestor::tr//span[contains(@class,\"anticon-user-add\")]"));
+        js_click(By.xpath("//h4[text()=\""+hasher+"\"]//ancestor::tr//span[contains(@class,\"anticon-user-add\")]"));
         return this;
     }
     public Allocate close_search() throws InterruptedException {
@@ -225,11 +222,11 @@ public class Allocate extends BaseClass{
         return this;
     }
     public Allocate click_allocation_tab() throws InterruptedException {
-        js_click(allocation_tab);
+        wait_and_click(allocation_tab);
         return this;
     }
     public Allocate click_view_response() throws InterruptedException {
-        js_click(view_response);
+        wait_and_click(view_response);
         return this;
     }
     public Allocate select_hasher() throws InterruptedException {
@@ -238,11 +235,11 @@ public class Allocate extends BaseClass{
         return this;
     }
     public Allocate click_close() throws InterruptedException {
-        js_click(close);
+        wait_and_click(close);
         return this;
     }
     public Allocate accept_pod() throws InterruptedException {
-        js_click(ao_accept_pod);
+        wait_and_click(ao_accept_pod);
         return this;
     }
     public Allocate click_confirm_pod() throws InterruptedException {
@@ -251,7 +248,7 @@ public class Allocate extends BaseClass{
     }
     public Allocate click_closed_tab() throws InterruptedException {
         driver.navigate().refresh();
-        js_click(closed_tab);
+        wait_and_click(closed_tab);
         return this;
     }
     public Allocate validate_count(int expected) throws InterruptedException {
@@ -273,7 +270,7 @@ public class Allocate extends BaseClass{
         return this;
     }
     public Allocate validate_closed_status(String pod) throws InterruptedException {
-        String closed_pod_path ="(//span[text()=\"POD-"+pod+"\"]/ancestor::td)/following-sibling::td//span[text()=\"CLOSED\"]";
+        String closed_pod_path ="(//span[text()=\""+pod+"\"]/ancestor::td)/following-sibling::td//span[text()=\"CLOSED\"]";
         wait.until(ExpectedConditions.presenceOfElementLocated(By.xpath(closed_pod_path)));
         String actual = driver.findElement(By.xpath(closed_pod_path)).getText();
 
