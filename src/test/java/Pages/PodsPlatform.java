@@ -96,7 +96,7 @@ public class PodsPlatform extends BaseClass {
     public PodsPlatform set_delivery_leader() throws InterruptedException {
         wait.until(ExpectedConditions.presenceOfElementLocated(delivery_leader));
         WebElement yourOption = driver.findElement(delivery_leader);
-        yourOption.sendKeys("saurasahu");
+        yourOption.sendKeys(prop.getProperty("Email"));
 
         Thread.sleep(2000);
         yourOption.sendKeys(Keys.DOWN);

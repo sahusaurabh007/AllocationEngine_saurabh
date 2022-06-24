@@ -10,23 +10,28 @@ import org.openqa.selenium.support.ui.WebDriverWait;
 import org.testng.annotations.AfterMethod;
 import org.testng.annotations.BeforeMethod;
 
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
+import java.io.IOException;
+import java.util.Properties;
 import java.util.concurrent.TimeUnit;
 
 public class BaseClass {
       public static WebDriver driver;
       public static WebDriverWait wait;
+      public static Properties prop;
 
     @BeforeMethod
     public static WebDriver initialSetup(){         // start chrome with given url
 
-        System.setProperty("webdriver.chrome.driver","C:\\Users\\saurasahu\\IdeaProjects\\drivers\\chromedriver.exe");
+        System.setProperty("webdriver.chrome.driver","Drivers/chromedriver.exe");
         driver=new ChromeDriver();
         driver.manage().window().maximize();
 
-        driver.get("https://dna-staging.hashedin.com/pods/requests/PR-87");
-       //driver.get("https://dna-staging.hashedin.com/allocation/allocate");
+        load_properties_file();
+        driver.get(prop.getProperty("Url"));
 
-        //driver.manage().timeouts().implicitlyWait(20, TimeUnit.SECONDS);
         wait = new WebDriverWait(driver, 40);
         return driver;
     }
@@ -49,6 +54,23 @@ public class BaseClass {
                         executeScript("return document.readyState").equals("complete"));
 
         Thread.sleep(1000);
+    }
+    public static void load_properties_file(){
+        File file = new File(System.getProperty("user.dir")+"/src/test/Config.properties");
+        FileInputStream fileInput = null;
+        try {
+            fileInput = new FileInputStream(file);
+        } catch (FileNotFoundException e) {
+            e.printStackTrace();
+        }
+        prop = new Properties();
+
+        //load properties file
+        try {
+            prop.load(fileInput);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
     public void go_to_allocation_engine() throws InterruptedException {
         driver.get("https://dna-staging.hashedin.com/allocation/allocate");
