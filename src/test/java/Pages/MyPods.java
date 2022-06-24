@@ -1,5 +1,6 @@
 package Pages;
 
+import Testing.BaseClass;
 import org.openqa.selenium.By;
 import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.Keys;
@@ -8,12 +9,9 @@ import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
 import org.testng.Assert;
 
-public class MyPods extends BaseClass{
-    By confidence= By.xpath("//input[contains(@id,\"confidence\")]");
-    By high_btn= By.xpath("//div[text()=\"High\"]");
-    By po_select= By.xpath("//button[contains(@class, \"submit-btn\")]");
+public class MyPods extends BaseClass {
 
-    By mypods= By.xpath("//span[text()=\"My Pods\"]");
+    By MyPodsTab = By.xpath("//span[contains(text(),'My Pods')]");
     By po_accept_pod= By.xpath("//span[text()=\"Accept\"]");
     By confirm_pod= By.xpath("//span[text()=\"Yes, Confirm\"]");
     By message= By.xpath("//div[@class=\"ant-message-notice\"]//span[2]");
@@ -22,13 +20,18 @@ public class MyPods extends BaseClass{
     By nomination_with_count = By.xpath("(//article[@class='ant-typography'])[1]");
     By zero_nominations= By.xpath("//td[6]//button");
     By close= By.xpath("//button[@aria-label=\"Close\"]");
-    By pod_status= By.xpath("//span[text()=\"CLOSED\"]");
+    By closed_status = By.xpath("//span[text()=\"CLOSED\"]");
     By closed_tab= By.xpath("//div[contains(text(),\"Closed Pods\")]");
+
+//    By confidence= By.xpath("//input[contains(@id,\"confidence\")]");
+//    By high_btn= By.xpath("//div[text()=\"High\"]");
+    By confidenceLevel = By.xpath("//div[@title='High']");
+    By po_select= By.xpath("//span[@class='anticon anticon-check-circle']");
 
     public int count=0;
 
     public MyPods click_Mypods() throws InterruptedException {
-        wait_and_click(mypods);
+        do_click(MyPodsTab);
 
         return this;
     }
@@ -38,46 +41,49 @@ public class MyPods extends BaseClass{
                         executeScript("return document.readyState").equals("complete"));
         driver.navigate().refresh();
 
-        wait_and_click(By.xpath("//span[text()=\""+pod+"\"]"));
+        do_click(By.xpath("//span[text()=\""+pod+"\"]"));
         return this;
     }
     public MyPods click_nominate() throws InterruptedException {
-        wait_and_click(zero_nominations);
+        do_click(zero_nominations);
         return this;
     }
     public MyPods click_nominations() throws InterruptedException {
-        wait_and_click(nomination_with_count);
+        do_click(nomination_with_count);
         return this;
     }
-    public MyPods give_confidence() throws InterruptedException {
-        wait.until(ExpectedConditions.presenceOfElementLocated(confidence));
-        WebElement yourOption = driver.findElement(confidence);
-        yourOption.sendKeys(Keys.DOWN);
-        yourOption.sendKeys(Keys.RETURN);
-
-        new WebDriverWait(driver, 20).
-                until(webDriver -> ((JavascriptExecutor) webDriver).
-                        executeScript("return document.readyState").equals("complete"));
-        Thread.sleep(1000);
+    public MyPods provide_ConfidenceLevel() throws InterruptedException {
+        do_click(confidenceLevel);
         return this;
     }
+//    public MyPods give_confidence() throws InterruptedException {
+//        wait.until(ExpectedConditions.presenceOfElementLocated(confidence));
+//        WebElement yourOption = driver.findElement(confidence);
+//        yourOption.sendKeys(Keys.DOWN);
+//        yourOption.sendKeys(Keys.RETURN);
+//
+//        new WebDriverWait(driver, 20).
+//                until(webDriver -> ((JavascriptExecutor) webDriver).
+//                        executeScript("return document.readyState").equals("complete"));
+//        Thread.sleep(1000);
+//        return this;
+//    }
 
-    public MyPods confirm_feedback() throws InterruptedException {
-        wait_and_click(po_select);
-        Thread.sleep(2000);
+    public MyPods select_hasher() throws InterruptedException {
+        do_click(po_select);
         return this;
     }
     public MyPods close_feedback() throws InterruptedException {
-        wait_and_click(close);
+        do_click(close);
         Thread.sleep(2000);
         return this;
     }
     public MyPods accept_pod() throws InterruptedException {
-        wait_and_click(po_accept_pod);
+        do_click(po_accept_pod);
         return this;
     }
     public MyPods click_confirm_pod() throws InterruptedException {
-        wait_and_click(confirm_pod);
+        do_click(confirm_pod);
         return this;
     }
 
@@ -121,8 +127,8 @@ public class MyPods extends BaseClass{
         return this;
     }
     public MyPods validate_closed_status() throws InterruptedException {
-        wait.until(ExpectedConditions.presenceOfElementLocated(pod_status));
-        String actual=  driver.findElement(pod_status).getText();
+        wait.until(ExpectedConditions.presenceOfElementLocated(closed_status));
+        String actual=  driver.findElement(closed_status).getText();
         Assert.assertEquals(actual,"CLOSED");
         return this;
     }
@@ -137,7 +143,7 @@ public class MyPods extends BaseClass{
     }
     public MyPods click_closed_tab() throws InterruptedException {
         driver.navigate().refresh();
-        wait_and_click(closed_tab);
+        do_click(closed_tab);
         return this;
     }
 

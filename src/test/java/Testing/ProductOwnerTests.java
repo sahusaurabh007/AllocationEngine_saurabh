@@ -2,8 +2,6 @@ package Testing;
 
 
 import Pages.*;
-import org.openqa.selenium.JavascriptExecutor;
-import org.openqa.selenium.support.ui.WebDriverWait;
 import org.testng.annotations.Test;
 
 public class ProductOwnerTests extends BaseClass{
@@ -67,12 +65,12 @@ public class ProductOwnerTests extends BaseClass{
         login.go_to_allocation_engine();
 
         // AO nominates a hasher
-        AllocationOwner.click_allocations()
+        AllocationOwner.click_allocationsTab()
                 .click_pod(PO.pod_id)
-                .click_nominate()
+                .click_nominate_btn()
                 .reset_filter()
-                .add_hasher()
-                .confirm_nominations()
+                .click_add_hasher()
+                .click_ConfirmNomination()
                 .wait_for_message()
                 .go_back();
 
@@ -95,9 +93,9 @@ public class ProductOwnerTests extends BaseClass{
        login.go_to_allocation_engine();
 
         // AO nominates 3 hasher
-        AllocationOwner.click_allocations()
+        AllocationOwner.click_allocationsTab()
                 .click_pod(PO.pod_id)
-                .click_nominate()
+                .click_nominate_btn()
                 .reset_filter()
 
                 .search_hasher(hasher1)
@@ -111,7 +109,7 @@ public class ProductOwnerTests extends BaseClass{
                 .search_hasher(hasher3)
                 .nominate_hasher(hasher3)
 
-                .confirm_nominations()
+                .click_ConfirmNomination()
                 .wait_for_message()
                 .go_back();
 
@@ -132,13 +130,13 @@ public class ProductOwnerTests extends BaseClass{
         login.go_to_allocation_engine();
 
         //AO nominates a hasher
-        AllocationOwner.click_allocations()
+        AllocationOwner.click_allocationsTab()
                 .click_pod(PO.pod_id)
-                .click_nominate()
+                .click_nominate_btn()
                 .filter_b8_band()
                 .change_page_size()
                 .nominate_unallocated_hasher()
-                .confirm_nominations()
+                .click_ConfirmNomination()
                 .wait_for_message()
                 .wait_for_consideration()
                 .go_back();
@@ -147,12 +145,13 @@ public class ProductOwnerTests extends BaseClass{
         ProductOwner.click_Mypods()
                     .click_pod(PO.pod_id)
                     .click_nominations()
-                    .give_confidence()
-                    .confirm_feedback()
+                    .provide_ConfidenceLevel()
+                    .select_hasher()
+                    .wait_for_message()
                     .close_feedback();
 
         // Ao allocates hasher
-         AllocationOwner.click_allocations()
+         AllocationOwner.click_allocationsTab()
                         .click_pod(PO.pod_id)
                         .click_allocation_tab()
                         .click_view_response()
@@ -177,13 +176,13 @@ public class ProductOwnerTests extends BaseClass{
         login.go_to_allocation_engine();
 
         //AO nominates a hasher
-        AllocationOwner.click_allocations()
+        AllocationOwner.click_allocationsTab()
                 .click_pod(PO.pod_id)
-                .click_nominate()
+                .click_nominate_btn()
                 .filter_b8_band()
                 .change_page_size()
                 .nominate_unallocated_hasher()
-                .confirm_nominations()
+                .click_ConfirmNomination()
                 .wait_for_message()
                 .wait_for_consideration()
                 .go_back();
@@ -192,12 +191,13 @@ public class ProductOwnerTests extends BaseClass{
         ProductOwner.click_Mypods()
                 .click_pod(PO.pod_id)
                 .click_nominations()
-                .give_confidence()
-                .confirm_feedback()
+                .provide_ConfidenceLevel()
+                .select_hasher()
+                .wait_for_message()
                 .close_feedback();
 
         // Ao allocates hasher
-        AllocationOwner.click_allocations()
+        AllocationOwner.click_allocationsTab()
                 .click_pod(PO.pod_id)
                 .click_allocation_tab()
                 .click_view_response()
@@ -224,13 +224,13 @@ public class ProductOwnerTests extends BaseClass{
         login.go_to_allocation_engine();
 
          //AO nominates a hasher
-         AllocationOwner.click_allocations()
+         AllocationOwner.click_allocationsTab()
                  .click_pod(PO.pod_id)
-                 .click_nominate()
+                 .click_nominate_btn()
                  .filter_b8_band()
                  .change_page_size()
                  .nominate_unallocated_hasher()
-                 .confirm_nominations()
+                 .click_ConfirmNomination()
                  .wait_for_message()
                  .wait_for_consideration()
                  .go_back();
@@ -239,12 +239,13 @@ public class ProductOwnerTests extends BaseClass{
          ProductOwner.click_Mypods()
                  .click_pod(PO.pod_id)
                  .click_nominations()
-                 .give_confidence()
-                 .confirm_feedback()
+                 .provide_ConfidenceLevel()
+                 .select_hasher()
+                 .wait_for_message()
                  .close_feedback();
 
         // Ao allocates hasher
-         AllocationOwner.click_allocations()
+         AllocationOwner.click_allocationsTab()
                  .click_pod(PO.pod_id)
                  .click_allocation_tab()
                  .click_view_response()

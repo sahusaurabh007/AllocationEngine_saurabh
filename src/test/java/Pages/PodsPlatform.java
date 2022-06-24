@@ -1,11 +1,10 @@
 package Pages;
 
+import Testing.BaseClass;
 import org.openqa.selenium.By;
-import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.Keys;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.ui.ExpectedConditions;
-import org.openqa.selenium.support.ui.WebDriverWait;
 import org.testng.Assert;
 
 public class PodsPlatform extends BaseClass {
@@ -43,6 +42,41 @@ public class PodsPlatform extends BaseClass {
     By move_to_allocation_btn = By.xpath("//span[text()=\"Move to Allocation\"]");
 //    By = By.xpath("");
 
+    public void create_newpod() throws InterruptedException {
+        Thread.sleep(7000);
+
+            click_test_btn();
+            click_edit_btn();
+            set_delivery_leader();
+            set_product_manager();
+            click_update_btn();
+            wait_for_message();
+            go_back();
+            click_new_config();
+            set_config_name();
+            click_config_start_date();
+            set_todays_date();
+            set_role();
+            set_skill();
+            click_save_config();
+            wait_for_message();
+            click_new_pod();
+            set_pod_name();
+            click_onboard_date();
+            set_onboard_start_date();
+            click_billing_date();
+            set_billing_start_date();
+            set_SKU();
+            click_confirm_pod_btn();
+            select_config();
+            click_continue_btn();
+            click_confirm_btn();
+            wait_for_message();
+            click_latest_created_pod();
+            click_move_to_allocation();
+            click_confirm_btn();
+        }
+
     public PodsPlatform click_test_btn() throws InterruptedException {
         //Thread.sleep(10000);
         System.out.println(test_btn);
@@ -55,7 +89,7 @@ public class PodsPlatform extends BaseClass {
     }
 
     public PodsPlatform click_edit_btn() throws InterruptedException {
-        wait_and_click(edit_btn);
+        do_click(edit_btn);
         return this;
     }
 
@@ -82,7 +116,7 @@ public class PodsPlatform extends BaseClass {
     }
 
     public PodsPlatform click_update_btn() throws InterruptedException {
-        wait_and_click(update_btn);
+        do_click(update_btn);
         return this;
     }
 
@@ -97,7 +131,7 @@ public class PodsPlatform extends BaseClass {
         return this;
     }
     public PodsPlatform click_new_config() throws InterruptedException {
-        wait_and_click(new_config_btn);
+        do_click(new_config_btn);
         return  this;
     }
 
@@ -137,11 +171,11 @@ public class PodsPlatform extends BaseClass {
         return  this;
     }
     public PodsPlatform click_save_config() throws InterruptedException {
-        wait_and_click(save_config_btn);
+        do_click(save_config_btn);
         return  this;
     }
     public PodsPlatform click_new_pod() throws InterruptedException {
-        wait_and_click(new_pod_btn);
+        do_click(new_pod_btn);
         return  this;
     }
     public PodsPlatform set_pod_name() throws InterruptedException {
@@ -181,7 +215,7 @@ public class PodsPlatform extends BaseClass {
         return  this;
     }
     public PodsPlatform click_confirm_pod_btn() throws InterruptedException {
-        wait_and_click(confirm_pod_btn);
+        do_click(confirm_pod_btn);
         return  this;
     }
     public PodsPlatform select_config() throws InterruptedException {
@@ -195,11 +229,11 @@ public class PodsPlatform extends BaseClass {
         return  this;
     }
     public PodsPlatform click_continue_btn() throws InterruptedException {
-        wait_and_click(continue_btn);
+        do_click(continue_btn);
         return  this;
     }
     public PodsPlatform click_confirm_btn() throws InterruptedException {
-        wait_and_click(confirm_btn);
+        do_click(confirm_btn);
         return  this;
     }
     public PodsPlatform click_latest_created_pod() throws InterruptedException {
@@ -210,13 +244,13 @@ public class PodsPlatform extends BaseClass {
         int size = driver.findElements(all_pods).size();
         By latest_pod = By.xpath("(//div[@class=\"ant-space-item\"]//a)["+size+"]");
         pod_id = driver.findElement(latest_pod).getText();
-        wait_and_click(latest_pod);
+        do_click(latest_pod);
         return this;
         }
     public PodsPlatform click_move_to_allocation() throws InterruptedException {
         Thread.sleep(4000);
         //wait.until(ExpectedConditions.elementToBeClickable(move_to_allocation_btn));
-        wait_and_click(move_to_allocation_btn);
+        do_click(move_to_allocation_btn);
         return this;
     }
     public PodsPlatform validate_move_to_allocation() throws InterruptedException {

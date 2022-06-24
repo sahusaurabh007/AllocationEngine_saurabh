@@ -1,4 +1,4 @@
-package Pages;
+package Testing;
 
 import org.apache.log4j.Logger;
 import org.openqa.selenium.By;
@@ -30,7 +30,7 @@ public class BaseClass {
         wait = new WebDriverWait(driver, 40);
         return driver;
     }
-    public void wait_and_click(By element) throws InterruptedException {
+    public void do_click(By element) throws InterruptedException {
         System.out.println(element);
         wait.until(ExpectedConditions.presenceOfElementLocated(element));
         driver.findElement(element).click();
