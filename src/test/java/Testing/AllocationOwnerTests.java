@@ -9,7 +9,66 @@ public class AllocationOwnerTests extends BaseClass {
     MyPods ProductOwner = new MyPods();
     PodsPlatform PO = new PodsPlatform();
 
+    // chandana Tests
+    @Test
+    public void TC07_VerifyStatusOfPod() throws InterruptedException {
+        login.login_to_website();
+        PO.create_newpod();
+        login.go_to_allocation_engine();
 
+        AllocationOwner.verify_StatusOfPod();
+
+    }
+    @Test
+    public void TC08_VerifyStatusOfPodAfterNominate() throws InterruptedException {
+        login.login_to_website();
+        PO.create_newpod();
+        login.go_to_allocation_engine();
+
+        AllocationOwner.click_pod(PO.pod_id).
+                click_nominate_btn().
+                click_add_hasher().
+                click_ConfirmNomination().
+                click_allocationsTab().
+                click_confirm_pod().
+                verify_StatusAfterNominate();
+
+    }
+    @Test
+    public void TC09_VerifyAddingHaSher() throws InterruptedException {
+        login.login_to_website();
+        PO.create_newpod();
+        login.go_to_allocation_engine();
+
+        AllocationOwner.click_pod(PO.pod_id).
+                click_nominate_btn().
+                click_add_hasher().
+                click_ConfirmNomination();
+    }
+    @Test
+    public void TC10_VerifyFilterOption() throws InterruptedException {
+        login.login_to_website();
+        PO.create_newpod();
+        login.go_to_allocation_engine();
+
+        AllocationOwner.click_pod(PO.pod_id).
+                click_nominate_btn().
+                click_filter().
+                click_apply().
+                Verify_TheFilter();
+
+    }
+    @Test
+    public void TC21_verifyStatusAfterSaveConfiguration() throws InterruptedException{
+        login.login_to_website();
+        PO.create_newpod();
+        login.go_to_allocation_engine();
+
+        AllocationOwner.click_UpcomingPods().
+                verify_StatusAfterConfigureThePod();
+    }
+
+    // saurabh Tests
     @Test
     public void TC11_check_nomination_count() throws InterruptedException{
 
@@ -91,7 +150,7 @@ public class AllocationOwnerTests extends BaseClass {
                 .go_back();
 
         // PO gives confidence level to hasher
-        ProductOwner.click_Mypods()
+        ProductOwner.click_MyPods()
                 .click_pod(PO.pod_id)
                 .click_nominate()
                 .provide_ConfidenceLevel()
@@ -135,7 +194,7 @@ public class AllocationOwnerTests extends BaseClass {
         String hasher_nominated = AllocationOwner.name;
 
         // PO gives confidence level to hasher
-        ProductOwner.click_Mypods()
+        ProductOwner.click_MyPods()
                 .click_pod(PO.pod_id)
                 .click_nominations()
                 .provide_ConfidenceLevel()
@@ -154,7 +213,7 @@ public class AllocationOwnerTests extends BaseClass {
                         .click_confirm_pod();
 
         // po Accepts pod
-        ProductOwner.click_Mypods()
+        ProductOwner.click_MyPods()
                 .click_pod(PO.pod_id)
                 .accept_pod()
                 .click_confirm_pod();
@@ -177,7 +236,7 @@ public class AllocationOwnerTests extends BaseClass {
                 .go_back();
 
         // PO gives confidence level to hasher
-        ProductOwner.click_Mypods()
+        ProductOwner.click_MyPods()
                 .click_pod(PO.pod_id)
                 .click_nominations()
                 .provide_ConfidenceLevel()
@@ -216,7 +275,7 @@ public class AllocationOwnerTests extends BaseClass {
                 .go_back();
 
         // PO gives confidence level to hasher
-        ProductOwner.click_Mypods()
+        ProductOwner.click_MyPods()
                 .click_pod(PO.pod_id)
                 .click_nominate()
                 .provide_ConfidenceLevel()
@@ -235,7 +294,7 @@ public class AllocationOwnerTests extends BaseClass {
                 .click_confirm_pod();
 
         // po Accepts pod
-        ProductOwner.click_Mypods()
+        ProductOwner.click_MyPods()
                 .click_pod(PO.pod_id)
                 .accept_pod()
                 .click_confirm_pod();

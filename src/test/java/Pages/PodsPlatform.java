@@ -107,7 +107,7 @@ public class PodsPlatform extends BaseClass {
     public PodsPlatform set_product_manager() throws InterruptedException {
         wait.until(ExpectedConditions.presenceOfElementLocated(project_manager));
         WebElement yourOption = driver.findElement(project_manager);
-        yourOption.sendKeys("saurasahu");
+        yourOption.sendKeys(prop.getProperty("Email"));
 
         Thread.sleep(2000);
         yourOption.sendKeys(Keys.DOWN);
@@ -147,7 +147,7 @@ public class PodsPlatform extends BaseClass {
     }
     public PodsPlatform set_todays_date() throws InterruptedException {
         wait.until(ExpectedConditions.presenceOfElementLocated(date_today));
-        driver.findElement(date_today).click();
+        js_click(date_today);
         return  this;
     }
     public PodsPlatform set_role() throws InterruptedException {
@@ -237,8 +237,8 @@ public class PodsPlatform extends BaseClass {
         return  this;
     }
     public PodsPlatform click_latest_created_pod() throws InterruptedException {
-        Thread.sleep(3000);         // as after 2 success messages it takes some time to display new pod
-        driver.navigate().refresh();
+        Thread.sleep(4000);         // as after 2 success messages it takes some time to display new pod
+        //driver.navigate().refresh();
 
         wait.until(ExpectedConditions.presenceOfElementLocated(all_pods));
         int size = driver.findElements(all_pods).size();

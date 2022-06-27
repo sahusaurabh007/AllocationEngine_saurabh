@@ -11,16 +11,18 @@ import org.testng.Assert;
 
 public class Allocate extends BaseClass {
 
+    // common xpaths
     By nominate_btn = By.xpath("//tr[contains(@class,\"row-level-0 pointer\")][1]");
-    By nomination_with_count = By.xpath("(//article[@class='ant-typography'])[1]");
-    //By zero_nominations= By.xpath("//td[6]//button");
     By add_hasher = By.xpath("(//span[@class='anticon anticon-user-add'])[1]");
     By ConfirmNominationButton = By.xpath("//span[contains(text(),\"Confirm Nominations\")]");
-    By filter = By.xpath("//span[@class=\"ant-badge\"]");
-    By reset = By.xpath("//button[contains(@class,\"resetBtn\")]");
-    By apply_btn = By.xpath("//span[contains(text(),\"Apply\")]");
-
+    By nomination_with_count = By.xpath("(//article[@class='ant-typography'])[1]");
+    By confirm_pod= By.xpath("//span[text()=\"Yes, Confirm\"]");
     By AllocationTab = By.xpath("//span[contains(text(),'Allocations')]");
+    By filter = By.xpath("//span[@class=\"ant-badge\"]");
+    By apply_btn = By.xpath("//span[contains(text(),\"Apply\")]");
+    By reset_Btn = By.xpath("//span[contains(text(),\"Reset\")]");
+
+    // saurabh xpath
     By selected_hasher= By.xpath("//tr[1]//h2[@class=\"name\"]");
     By allocation_tab = By.xpath("//div[text()=\"Allocation\"]");
     By view_response= By.xpath("//button[text()=\"View Responses\"]");
@@ -29,21 +31,25 @@ public class Allocate extends BaseClass {
     By ao_accept_pod= By.xpath("//span[text()=\"Confirm Pod\"]");
     By closed_tab= By.xpath("//div[contains(text(),\"Closed Pods\")]");
     By message= By.xpath("//div[@class=\"ant-message-notice\"]//span[2]");
-    By confirm_pod= By.xpath("//span[text()=\"Yes, Confirm\"]");
     By search= By.xpath("//input[@class=\"ant-input\"]");
-    By searchBtn= By.xpath("//button[contains(@class,\"input-search-button\")]");
     By closeBtn= By.xpath("//span[contains(@class,\"close-circle\")]");
-
     By no_nomination_status = By.xpath("//div[text()=\"No other Nominations\"]");
     By bands= By.xpath("(//p[text()=\"Bands\"])//following::input[@type=\"search\"][1]");
     By page_size= By.xpath("//div[@class=\"nominate-modal\"]//descendant::input[@aria-label=\"Page Size\"]");
-    By view_btn= By.xpath("//img[contains(@src,\"view\")]");
-    By hasher_name= By.xpath("//h2[@class='name']");
-    By nominate_hasher= By.xpath("//span[contains(@class,\"anticon-user-add\")]");
-    By hasher_status= By.xpath("//li[contains(@class,'list-item')]");
+
+    //Chandana X-paths
+    By SkillInFilter = By.xpath("//*[@class='ant-select-selection-item-content']");
+    By SkillInWebPage = By.xpath("(//*[@class='ant-tag' and contains(text(),'Java')])[2]");
+    By UpcomingPodsTab = By.xpath("//div[@id='rc-tabs-0-tab-upcomingPods']");
+    By StatusOfUpcomingPod = By.xpath("//span[contains(text(),'UPCOMING')]");
+    By StatusOfPod = By.xpath("//span[@data-status='ALLOCATION_READY']");
+    By StatusOfPodAfterNominate = By.xpath("//span[contains(text(),'IN PROGRESS')]");
+    By selectBands = By.xpath("(//div[@class='ant-select-selector'])[3]");
+    By Band = By.xpath("(//p[text()=\"Bands\"])//following::input[@type=\"search\"][1]");
 
     public String name="";
 
+    // common Action Methods
     public Allocate click_allocationsTab() throws InterruptedException {
         do_click(AllocationTab);
         return  this;
@@ -71,13 +77,15 @@ public class Allocate extends BaseClass {
         return this;
     }
     public Allocate click_reset() throws InterruptedException {
-        js_click(reset);
+        js_click(reset_Btn);
         return this;
     }
     public Allocate click_apply() throws InterruptedException {
         js_click(apply_btn);
         return this;
     }
+
+    // saurabh methods
     public Allocate reset_filter() throws InterruptedException {
         this.click_filter();
         this.click_reset();
@@ -88,7 +96,7 @@ public class Allocate extends BaseClass {
 
     public Allocate filter_b8_band() throws InterruptedException {
         js_click(filter);
-        js_click(reset);
+        js_click(reset_Btn);
 
         wait.until(ExpectedConditions.presenceOfElementLocated(bands));
         WebElement yourOption = driver.findElement(bands);
@@ -165,10 +173,6 @@ public class Allocate extends BaseClass {
 
         // nominate the hasher
         do_click(By.xpath("(//span[contains(@class,\"anticon-user-add\")])["+i+"]"));
-
-//        i++;  // due to add nominations a hasher is displayed in nominated hasher & has index 1
-//              // so index for all hashers in search results are increased by 1
-
 
         return this;
     }
@@ -266,6 +270,76 @@ public class Allocate extends BaseClass {
 
         Assert.assertEquals(actual,"CLOSED");
         return this;
+    }
+
+    // chandana's action Methods
+    public String SkillFilter() {
+
+        driver.findElement(SkillInFilter).isDisplayed();
+        return driver.findElement(SkillInFilter).getText();
+    }
+    public String SkillWebpage(){
+
+        return driver.findElement(SkillInWebPage).getText();
+    }
+    public Allocate Verify_TheFilter()  {
+
+        String SkillInFilter = SkillFilter();
+        String SkillInWebPage = SkillWebpage();
+        System.out.println("Skill in Filter:"+" "+SkillInFilter);
+        System.out.println("Skill in WebPage:"+" "+SkillInWebPage);
+        Assert.assertEquals(SkillInFilter,SkillInWebPage);
+        return this;
+    }
+    public Allocate click_UpcomingPods() throws InterruptedException {
+        do_click(UpcomingPodsTab);
+        return this;
+
+    }
+    public Allocate verify_StatusAfterNominate() throws InterruptedException {
+
+        String Status = get_StatusAfterNominate();
+        System.out.println("Status of pod After Nominate:"+" "+Status);
+        Assert.assertEquals(Status,"IN PROGRESS");
+        return this;
+    }
+    public Allocate verify_StatusAfterConfigureThePod(){
+
+        String Status = driver.findElement(StatusOfUpcomingPod).getText();
+        System.out.println("Status After Configuration :"+" "+Status);
+        Assert.assertEquals(Status,"UPCOMING");
+        return this;
+
+
+    }
+    public Allocate verify_StatusOfPod(){
+        String Status= get_StatusOfPod();
+        System.out.println("Status of pod:"+""+Status);
+        Assert.assertEquals(Status,"ALLOCATION READY");
+        return this;
+
+    }
+    public Allocate click_ResetButton() throws InterruptedException {
+        do_click(reset_Btn);
+        return this;
+    }
+    public Allocate SelectBand(){
+        driver.findElement(selectBands).click();
+        return this;
+    }
+    public Allocate click_Band(){
+        WebElement yourOption = driver.findElement(Band);
+        yourOption.sendKeys(prop.getProperty("Band"));
+        yourOption.sendKeys(Keys.RETURN);
+        return this;
+    }
+    public String get_StatusOfPod() {
+
+        return driver.findElement(StatusOfPod).getText();
+    }
+    public String get_StatusAfterNominate() throws InterruptedException {
+
+        return driver.findElement(StatusOfPodAfterNominate).getText();
     }
 //    public Allocate click_() throws InterruptedException {
 //

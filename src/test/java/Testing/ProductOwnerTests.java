@@ -10,46 +10,88 @@ public class ProductOwnerTests extends BaseClass{
     MyPods ProductOwner = new MyPods();
     PodsPlatform PO = new PodsPlatform();
 
-    public void create_newpod() throws InterruptedException {
-        Thread.sleep(7000);
-              PO
-                .click_test_btn()
-                .click_edit_btn()
-                .set_delivery_leader()
-                .set_product_manager()
-                .click_update_btn()
-                .wait_for_message()
-                .go_back()
-                .click_new_config()
-                .set_config_name()
-                .click_config_start_date()
-                .set_todays_date()
-                .set_role()
-                .set_skill()
-                .click_save_config()
-                .wait_for_message()
-                .click_new_pod()
-                .set_pod_name()
-                .click_onboard_date()
-                .set_onboard_start_date()
-                .click_billing_date()
-                .set_billing_start_date()
-                .set_SKU()
-                .click_confirm_pod_btn()
-                .select_config()
-                .click_continue_btn()
-                .click_confirm_btn()
-                .wait_for_message()
-                .click_latest_created_pod()
-                .click_move_to_allocation()
-                .click_confirm_btn();
+    // chandana Tests
+    @Test
+    public void TC09_VerifyStatusOfPod() throws InterruptedException{
+        login.login_to_website();
+        PO.create_newpod();
+        login.go_to_allocation_engine();
+
+        ProductOwner.click_MyPods().
+                verify_NewPods();
     }
+
+    @Test
+    public void TC10_VerifyMessageBeforeNominating() throws InterruptedException {
+        login.login_to_website();
+        PO.create_newpod();
+        login.go_to_allocation_engine();
+
+        ProductOwner.click_MyPods().
+                click_pod(PO.pod_id).
+                Verify_Message();
+    }
+    @Test
+    public void TC11_VerifyStatusAfterNominate() throws InterruptedException {
+        login.login_to_website();
+        PO.create_newpod();
+        login.go_to_allocation_engine();
+
+        AllocationOwner
+                .click_pod(PO.pod_id)
+                .click_nominate_btn()
+                .click_add_hasher()
+                .click_ConfirmNomination();
+        ProductOwner
+                .click_MyPods()
+                .click_confirm_pod()
+                .Verify_StatusAfterNominating();
+
+    }
+    @Test
+    public void TC13_VerifyConfidenceLevel() throws InterruptedException {
+        login.login_to_website();
+        PO.create_newpod();
+        login.go_to_allocation_engine();
+
+        AllocationOwner.click_pod(PO.pod_id)
+                .click_nominate_btn()
+                .click_filter()
+                .click_ResetButton()
+                .click_Band()
+                .click_apply()
+                .click_add_hasher().
+                click_ConfirmNomination();
+        ProductOwner.click_MyPods().
+                click_confirm_pod().
+                click_pod(PO.pod_id).
+                wait_for_consideration().
+                click_MyPodsNomination().
+                Verifying_TheConsideredStatus().
+                click_choose_confidence().
+                provide_ConfidenceLevel()
+                .Comments().select_hasher();
+    }
+    @Test
+    public void TC14_VerifyStatusResponded() throws InterruptedException {
+        login.login_to_website();
+        PO.create_newpod();
+        login.go_to_allocation_engine();
+
+        ProductOwner.click_MyPods().
+                click_pod(PO.pod_id).
+                Verify_StatusResponded();
+
+
+    }
+
+    // saurabh tests
     @Test
     public void TC01_check_po_able_to_create_newpod() throws InterruptedException {
         login.login_to_website();
 
         // create a new pod
-        create_newpod();
+        PO.create_newpod();
 
         // validation
         PO.validate_move_to_allocation();
@@ -61,7 +103,7 @@ public class ProductOwnerTests extends BaseClass{
 
         // PO.pod_id="POD-518";
         login.login_to_website();
-        create_newpod();
+        PO.create_newpod();
         login.go_to_allocation_engine();
 
         // AO nominates a hasher
@@ -75,7 +117,7 @@ public class ProductOwnerTests extends BaseClass{
                 .go_back();
 
         // po
-        ProductOwner.click_Mypods()
+        ProductOwner.click_MyPods()
                     .click_pod(PO.pod_id)
                     .validate_count(1);
 
@@ -89,7 +131,7 @@ public class ProductOwnerTests extends BaseClass{
         String hasher3 = "evanjames_test@deloitte.com";
 
        login.login_to_website();
-       create_newpod();
+        PO.create_newpod();
        login.go_to_allocation_engine();
 
         // AO nominates 3 hasher
@@ -114,7 +156,7 @@ public class ProductOwnerTests extends BaseClass{
                 .go_back();
 
         // po
-        ProductOwner.click_Mypods()
+        ProductOwner.click_MyPods()
                 .click_pod(PO.pod_id)
                 .count_nominations()
                 .wait_for_consideration()
@@ -126,7 +168,7 @@ public class ProductOwnerTests extends BaseClass{
         // PO.pod_id = "POD-526";
 
         login.login_to_website();
-        create_newpod();
+        PO.create_newpod();
         login.go_to_allocation_engine();
 
         //AO nominates a hasher
@@ -142,9 +184,10 @@ public class ProductOwnerTests extends BaseClass{
                 .go_back();
 
         // PO gives confidence level to hasher
-        ProductOwner.click_Mypods()
+        ProductOwner.click_MyPods()
                     .click_pod(PO.pod_id)
                     .click_nominations()
+                    .click_choose_confidence()
                     .provide_ConfidenceLevel()
                     .select_hasher()
                     .wait_for_message()
@@ -162,7 +205,7 @@ public class ProductOwnerTests extends BaseClass{
                         .click_confirm_pod();
 
         // validation in mypods
-        ProductOwner.click_Mypods()
+        ProductOwner.click_MyPods()
                 .validate_confirmed_status(PO.pod_id);
 
     }
@@ -172,7 +215,7 @@ public class ProductOwnerTests extends BaseClass{
        //  PO.pod_id = "POD-454";
 
         login.login_to_website();
-        create_newpod();
+        PO.create_newpod();
         login.go_to_allocation_engine();
 
         //AO nominates a hasher
@@ -188,9 +231,10 @@ public class ProductOwnerTests extends BaseClass{
                 .go_back();
 
         // PO gives confidence level to hasher
-        ProductOwner.click_Mypods()
+        ProductOwner.click_MyPods()
                 .click_pod(PO.pod_id)
                 .click_nominations()
+                .click_choose_confidence()
                 .provide_ConfidenceLevel()
                 .select_hasher()
                 .wait_for_message()
@@ -208,7 +252,7 @@ public class ProductOwnerTests extends BaseClass{
                 .click_confirm_pod();
 
         // po Accepts pod
-        ProductOwner.click_Mypods()
+        ProductOwner.click_MyPods()
                 .click_pod(PO.pod_id)
                 .accept_pod()
                 .click_confirm_pod()
@@ -220,7 +264,7 @@ public class ProductOwnerTests extends BaseClass{
         // PO.pod_id = "POD-525";
 
         login.login_to_website();
-        create_newpod();
+         PO.create_newpod();
         login.go_to_allocation_engine();
 
          //AO nominates a hasher
@@ -236,9 +280,10 @@ public class ProductOwnerTests extends BaseClass{
                  .go_back();
 
         // PO gives confidence level to hasher
-         ProductOwner.click_Mypods()
+         ProductOwner.click_MyPods()
                  .click_pod(PO.pod_id)
                  .click_nominations()
+                 .click_choose_confidence()
                  .provide_ConfidenceLevel()
                  .select_hasher()
                  .wait_for_message()
@@ -256,7 +301,7 @@ public class ProductOwnerTests extends BaseClass{
                  .click_confirm_pod();
 
         // po Accepts pod
-         ProductOwner.click_Mypods()
+         ProductOwner.click_MyPods()
                  .click_pod(PO.pod_id)
                  .accept_pod()
                  .click_confirm_pod()
