@@ -82,7 +82,6 @@ public class ProductOwnerTests extends BaseClass{
                 click_pod(PO.pod_id).
                 Verify_StatusResponded();
 
-
     }
 
     // saurabh tests
