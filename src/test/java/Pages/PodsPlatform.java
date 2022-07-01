@@ -21,10 +21,11 @@ public class PodsPlatform extends BaseClass {
     By pod_size = By.xpath("//input[contains(@id,\"podSize\")]");
     By config_start_date = By.xpath("//input[contains(@id,\"startDate\")]");
     By date_today = By.xpath("(//td[contains(@class,\"ant-picker-cell-today\")])[1]");
-    By role = By.xpath("(//input[@class=\"ant-select-selection-search-input\"])[1]");
-    // Developer - React
-    By skill_set = By.xpath("(//input[@class=\"ant-select-selection-search-input\"])[2]");
-    // React
+    By capability = By.xpath("(//input[@class=\"ant-select-selection-search-input\"])[1]");
+    // SDET
+    By track= By.xpath("(//input[@class=\"ant-select-selection-search-input\"])[2]");
+    By skill_set = By.xpath("(//input[@class=\"ant-select-selection-search-input\"])[3]");
+    // Java
     By save_config_btn = By.xpath("//span[contains(text(),\"Save Configuration\")]");
     By new_pod_btn = By.xpath("//span[contains(text(),\" New Pod\")]");
     By pod_name = By.xpath("//input[contains(@placeholder,\"Pod Name\")]");
@@ -56,8 +57,9 @@ public class PodsPlatform extends BaseClass {
             set_config_name();
             click_config_start_date();
             set_todays_date();
-            set_role();
-            set_skill();
+            set_capability("SDET");
+            set_track("SDET");
+            set_skill("Java");
             click_save_config();
             wait_for_message();
             click_new_pod();
@@ -150,21 +152,31 @@ public class PodsPlatform extends BaseClass {
         js_click(date_today);
         return  this;
     }
-    public PodsPlatform set_role() throws InterruptedException {
-        wait.until(ExpectedConditions.presenceOfElementLocated(role));
+    public PodsPlatform set_capability(String str) throws InterruptedException {
+        wait.until(ExpectedConditions.presenceOfElementLocated(capability));
 
-        WebElement yourOption = driver.findElement(role);
-        yourOption.sendKeys("react");
+        WebElement yourOption = driver.findElement(capability);
+        yourOption.sendKeys(str);
         Thread.sleep(2000);
         yourOption.sendKeys(Keys.DOWN);
         yourOption.sendKeys(Keys.RETURN);
         return  this;
     }
-    public PodsPlatform set_skill() throws InterruptedException {
+    public PodsPlatform set_track(String str) throws InterruptedException {
+        wait.until(ExpectedConditions.presenceOfElementLocated(track));
+
+        WebElement yourOption = driver.findElement(track);
+        yourOption.sendKeys(str);
+        Thread.sleep(2000);
+        yourOption.sendKeys(Keys.DOWN);
+        yourOption.sendKeys(Keys.RETURN);
+        return  this;
+    }
+    public PodsPlatform set_skill(String str) throws InterruptedException {
         wait.until(ExpectedConditions.presenceOfElementLocated(skill_set));
 
         WebElement yourOption = driver.findElement(skill_set);
-        yourOption.sendKeys("react");
+        yourOption.sendKeys(str);
         Thread.sleep(2000);
         yourOption.sendKeys(Keys.DOWN);
         yourOption.sendKeys(Keys.RETURN);

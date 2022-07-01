@@ -20,19 +20,21 @@ public class Login extends BaseClass {
         js_click(deloitte);
 
         wait.until(ExpectedConditions.presenceOfElementLocated(email));
-        driver.findElement(email).sendKeys("saurasahu@deloitte.com");
+        driver.findElement(email).sendKeys(prop.getProperty("Email"));
 
         js_click(next);
 
         driver.manage().timeouts().pageLoadTimeout(100, SECONDS);
+
+        Thread.sleep(20000);
         loading_error();
-        //Thread.sleep(20000);
         return this;
     }
     public Login loading_error() throws InterruptedException {
         try {
             WebDriverWait wait = new WebDriverWait(driver, 5);
             wait.until(ExpectedConditions.presenceOfElementLocated(error_loading));
+            System.out.println("error_loading");
             driver.navigate().refresh();
         }
         catch(Exception ex){

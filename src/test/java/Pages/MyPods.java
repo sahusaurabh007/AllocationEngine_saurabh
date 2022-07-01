@@ -158,10 +158,9 @@ public class MyPods extends BaseClass {
     }
 
     public MyPods validate_success_msg() throws InterruptedException {
-
         wait.until(ExpectedConditions.presenceOfElementLocated(message));
         String actual = driver.findElement(message).getText();
-        Assert.assertEquals(actual,"Successful");
+        Assert.assertTrue(actual.contains("Success"));
         return this;
     }
 
