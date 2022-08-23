@@ -1,0 +1,5 @@
+23:46:30.895 [TestNG-test=Allocation Page Test-1] INFO  Testing.BaseClass - Test started for TC01_verifyLogin
+23:47:24.304 [TestNG-test=Allocation Page Test-1] INFO  Testing.BaseClass - Taking ScreenShot of successful for TC01_verifyLogin
+23:47:34.547 [TestNG-test=Allocation Page Test-1] INFO  Testing.BaseClass - Test started for TC05_verifyMostRecentPod
+23:54:12.015 [TestNG-test=Allocation Page Test-1] INFO  Testing.BaseClass - Test started for TC01_verifyLogin
+23:55:08.319 [TestNG-test=Allocation Page Test-1] INFO  Testing.BaseClass - Taking ScreenShot of successful for TC01_verifyLogin

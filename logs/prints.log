@@ -1,0 +1,2 @@
+21:28:57.523 [TestNG-test=Project Owner Test-1] INFO  PageObjects.AllocatePage - click_pod
+21:30:07.905 [TestNG-test=Project Owner Test-1] INFO  TestCases.BaseClass - Test started for TC20_check_closed_status

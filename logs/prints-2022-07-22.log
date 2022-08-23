@@ -1,0 +1,5 @@
+19:58:31.901 [TestNG-test=Project Owner Test-1] INFO  PageObjects.AllocatePage - click_allocationsTab
+19:58:36.202 [TestNG-test=Project Owner Test-1] INFO  PageObjects.AllocatePage - click_pod
+20:00:19.125 [TestNG-test=Project Owner Test-1] INFO  TestCases.BaseClass - Test started for TC19_check_PO_accept_pod
+20:03:31.988 [TestNG-test=Project Owner Test-1] INFO  TestCases.BaseClass - Test started for TC20_check_closed_status
+20:08:26.309 [TestNG-test=Project Owner Test-1] INFO  PageObjects.AllocatePage - click_allocationsTab

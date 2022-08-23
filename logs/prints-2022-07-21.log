@@ -1,0 +1,4 @@
+23:51:39.434 [TestNG-test=Project Owner Test-1] INFO  TestCases.BaseClass - Test started for TC04_verifyDashboard
+23:52:33.258 [TestNG-test=Project Owner Test-1] INFO  TestCases.BaseClass - Taking ScreenShot of successful for TC04_verifyDashboard
+23:52:41.106 [TestNG-test=Project Owner Test-1] INFO  TestCases.BaseClass - Test started for TC05_verify_togglingTabMethod
+23:53:35.791 [TestNG-test=Project Owner Test-1] INFO  TestCases.BaseClass - Taking ScreenShot of successful for TC05_verify_togglingTabMethod

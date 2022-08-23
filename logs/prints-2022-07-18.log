@@ -1,0 +1,7 @@
+20:38:38.739 [main] INFO  Pages.Allocate - click_reset
+20:38:39.876 [main] INFO  Pages.Allocate - click_apply
+20:38:40.995 [main] INFO  Pages.Allocate - click_apply
+20:39:21.301 [TestNG-test=Allocation Page Test-1] INFO  Testing.BaseClass - Test started for TC17_VerifyAllocatedHasher
+20:41:46.302 [TestNG-test=Allocation Page Test-1] INFO  Pages.Allocate - click_pod
+20:41:49.673 [TestNG-test=Allocation Page Test-1] INFO  Pages.Allocate - click_nominate_btn
+20:41:50.874 [TestNG-test=Allocation Page Test-1] INFO  Pages.Allocate - click_filter
